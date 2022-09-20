@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/_1.js"></script>
+        <script src="data/_2.js"></script>
+        <script src="data/2022_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+            map.setMaxBounds(map.getBounds());
+        }
+        map.createPane('pane_OSMStandard_0');
+        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop__1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style__1_0() {
+            return {
+                pane: 'pane__1',
+                opacity: 1,
+                color: 'rgba(71,9,13,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        function style__1_1() {
+            return {
+                pane: 'pane__1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane__1');
+        map.getPane('pane__1').style.zIndex = 401;
+        map.getPane('pane__1').style['mix-blend-mode'] = 'normal';
+        var layer__1 = new L.geoJson.multiStyle(json__1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json__1',
+            layerName: 'layer__1',
+            pane: 'pane__1',
+            onEachFeature: pop__1,
+            styles: [style__1_0,style__1_1,]
+        });
+        bounds_group.addLayer(layer__1);
+        map.addLayer(layer__1);
+        function pop__2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Наименование'] !== null ? autolinker.link(feature.properties['Наименование'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style__2_0() {
+            return {
+                pane: 'pane__2',
+                opacity: 1,
+                color: 'rgba(172,0,2,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        function style__2_1() {
+            return {
+                pane: 'pane__2',
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane__2');
+        map.getPane('pane__2').style.zIndex = 402;
+        map.getPane('pane__2').style['mix-blend-mode'] = 'normal';
+        var layer__2 = new L.geoJson.multiStyle(json__2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json__2',
+            layerName: 'layer__2',
+            pane: 'pane__2',
+            onEachFeature: pop__2,
+            styles: [style__2_0,style__2_1,]
+        });
+        bounds_group.addLayer(layer__2);
+        map.addLayer(layer__2);
+        function pop_2022_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Объекты БКД СПБ'] !== null ? autolinker.link(feature.properties['Объекты БКД СПБ'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_2022_3_0() {
+            return {
+                pane: 'pane_2022_3',
+                opacity: 1,
+                color: 'rgba(0,41,172,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        function style_2022_3_1() {
+            return {
+                pane: 'pane_2022_3',
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_2022_3');
+        map.getPane('pane_2022_3').style.zIndex = 403;
+        map.getPane('pane_2022_3').style['mix-blend-mode'] = 'normal';
+        var layer_2022_3 = new L.geoJson.multiStyle(json_2022_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_2022_3',
+            layerName: 'layer_2022_3',
+            pane: 'pane_2022_3',
+            onEachFeature: pop_2022_3,
+            styles: [style_2022_3_0,style_2022_3_1,]
+        });
+        bounds_group.addLayer(layer_2022_3);
+        map.addLayer(layer_2022_3);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/2022_3.png" /> Объекты БКАД СПБ 2022': layer_2022_3,'<img src="legend/_2.png" /> КАД(участки СПБ)': layer__2,'<img src="legend/_1.png" /> Граница Санкт-Петербурга': layer__1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_2022_3,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Объекты БКД СПБ'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"Объекты БКД СПБ": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_ = document.createElement('div');
+            div_.id = "div_";
+            div_.className= "filterselect";
+            document.getElementById("menu").appendChild(div_);
+            sel_ = document.createElement('select');
+            sel_.multiple = true;
+            sel_.size = 10;
+            sel_.id = "sel_";
+            var _options_str = "<option value='' unselected></option>";
+            sel_.onchange = function(){filterFunc()};
+            _options_str  += '<option value="1-я Конная Лахта">1-я Конная Лахта</option>';
+            _options_str  += '<option value="2-я Конная Лахта">2-я Конная Лахта</option>';
+            _options_str  += '<option value="3-я Конная Лахта">3-я Конная Лахта</option>';
+            _options_str  += '<option value="Б. Зеленина ул. от Малого пр. П.С. до наб. Адмирала Лазарева и Левашовского пр.">Б. Зеленина ул. от Малого пр. П.С. до наб. Адмирала Лазарева и Левашовского пр.</option>';
+            _options_str  += '<option value="Богатырский пр. от Коломяжского пр. до ул. Байконурской">Богатырский пр. от Коломяжского пр. до ул. Байконурской</option>';
+            _options_str  += '<option value="Индустриальный пр. от ш. Революции до Российского путепровода (выборочно)">Индустриальный пр. от ш. Революции до Российского путепровода (выборочно)</option>';
+            _options_str  += '<option value="Камышовая ул.">Камышовая ул.</option>';
+            _options_str  += '<option value="Краснопутиловская ул. от пл. Конституции до Кубинской ул.">Краснопутиловская ул. от пл. Конституции до Кубинской ул.</option>';
+            _options_str  += '<option value="Кузьминское шоссе от Волхонского шоссе до Петербургского шоссе">Кузьминское шоссе от Волхонского шоссе до Петербургского шоссе</option>';
+            _options_str  += '<option value="Лиговский пр. (от Московского пр. до линии Витебской ж.д.)">Лиговский пр. (от Московского пр. до линии Витебской ж.д.)</option>';
+            _options_str  += '<option value="Литейный пр. от Невского пр. до Литейного моста (выборочно)">Литейный пр. от Невского пр. до Литейного моста (выборочно)</option>';
+            _options_str  += '<option value="Набережная ул. от Садовой ул. до Московской ул.">Набережная ул. от Садовой ул. до Московской ул.</option>';
+            _options_str  += '<option value="Новороссийская ул. от пр. Энгельса до Политехнической ул.">Новороссийская ул. от пр. Энгельса до Политехнической ул.</option>';
+            _options_str  += '<option value="Павловская ул. от пл. Коммуны до ул. Танкистов">Павловская ул. от пл. Коммуны до ул. Танкистов</option>';
+            _options_str  += '<option value="Подключение делового квартала «Лахта центр». Этап 2.2">Подключение делового квартала «Лахта центр». Этап 2.2</option>';
+            _options_str  += '<option value="Пулковское шоссе от Волхонского шоссе до границы с Гатчинским районом Ленинградской обл.">Пулковское шоссе от Волхонского шоссе до границы с Гатчинским районом Ленинградской обл.</option>';
+            _options_str  += '<option value="Пулковское шоссе от Волхонского шоссе до тонеля в г. Пушкин (выборочно)">Пулковское шоссе от Волхонского шоссе до тонеля в г. Пушкин (выборочно)</option>';
+            _options_str  += '<option value="Пухтоловская дорога от пр.Ленина до Рощинского шоссе">Пухтоловская дорога от пр.Ленина до Рощинского шоссе</option>';
+            _options_str  += '<option value="Реконструкция Петрозаводского шоссе. 2-й этап">Реконструкция Петрозаводского шоссе. 2-й этап</option>';
+            _options_str  += '<option value="Рябовское шоссе от Сосновского пр. до КАД">Рябовское шоссе от Сосновского пр. до КАД</option>';
+            _options_str  += '<option value="Строительство транспортной развязки на пересечении Московского шоссе с Дунайским пр.">Строительство транспортной развязки на пересечении Московского шоссе с Дунайским пр.</option>';
+            _options_str  += '<option value="Трамвайный пр. от пр. Стачек до линии Балтийской ж.д.">Трамвайный пр. от пр. Стачек до линии Балтийской ж.д.</option>';
+            _options_str  += '<option value="Фронтовая ул. (от Санкт-Петербургского шоссе до Волхонского шоссе)">Фронтовая ул. (от Санкт-Петербургского шоссе до Волхонского шоссе)</option>';
+            _options_str  += '<option value="Шафировский пр. от Пискарёвского пр. до крематория">Шафировский пр. от Пискарёвского пр. до крематория</option>';
+            _options_str  += '<option value="Якорная ул.">Якорная ул.</option>';
+            _options_str  += '<option value="наб. р. Волковки (от Мгинской ул. до Днепропетровской ул.)">наб. р. Волковки (от Мгинской ул. до Днепропетровской ул.)</option>';
+            _options_str  += '<option value="наб.Обводного кан. (четная сторона)  от Московского пр. до Варшавского экспресса">наб.Обводного кан. (четная сторона)  от Московского пр. до Варшавского экспресса</option>';
+            _options_str  += '<option value="пл. Восстания">пл. Восстания</option>';
+            _options_str  += '<option value="пл. Конституции на пересечении Ленинского пр. и Краснопутиловской ул.">пл. Конституции на пересечении Ленинского пр. и Краснопутиловской ул.</option>';
+            _options_str  += '<option value="пр. Большевиков от ул. Коллонтай до Дальневосточного пр.">пр. Большевиков от ул. Коллонтай до Дальневосточного пр.</option>';
+            _options_str  += '<option value="пр. Ленина от Исполкомской ул. и Приморского шоссе до границы г. Зеленогорска">пр. Ленина от Исполкомской ул. и Приморского шоссе до границы г. Зеленогорска</option>';
+            _options_str  += '<option value="пр. Ленина от ул. Восстания до Макаровской ул.">пр. Ленина от ул. Восстания до Макаровской ул.</option>';
+            _options_str  += '<option value="пр. Маршала Блюхера от Полюстровского пр. до Пискаревского пр.">пр. Маршала Блюхера от Полюстровского пр. до Пискаревского пр.</option>';
+            _options_str  += '<option value="пр. Науки от Гражданского пр. до ул. Карпинского">пр. Науки от Гражданского пр. до ул. Карпинского</option>';
+            _options_str  += '<option value="пр. Обуховской Обороны (за исключением участка от ул. Шелгунова до ул. Грибакиных, выборочно) ">пр. Обуховской Обороны (за исключением участка от ул. Шелгунова до ул. Грибакиных, выборочно) </option>';
+            _options_str  += '<option value="ул. Александра Матросова  от Елизаветинской ул. до Павловского шоссе (Пязелево)">ул. Александра Матросова  от Елизаветинской ул. до Павловского шоссе (Пязелево)</option>';
+            _options_str  += '<option value="ул. Дыбенко от Дальневосточного пр. до пр. Солидарности">ул. Дыбенко от Дальневосточного пр. до пр. Солидарности</option>';
+            _options_str  += '<option value="ул. Есенина от ул. Сикейроса до Придорожной аллеи">ул. Есенина от ул. Сикейроса до Придорожной аллеи</option>';
+            _options_str  += '<option value="ул. Комсомола от Арсенальной ул. до ул. Академика Лебедева">ул. Комсомола от Арсенальной ул. до ул. Академика Лебедева</option>';
+            _options_str  += '<option value="ул. Лени Голикова  от  пр. Стачек  до пр. Народного Ополчения">ул. Лени Голикова  от  пр. Стачек  до пр. Народного Ополчения</option>';
+            _options_str  += '<option value="ул. Маршала Захарова (от Финского залива (фактически от Балтийского бульв.) до пр. Маршала Жукова)">ул. Маршала Захарова (от Финского залива (фактически от Балтийского бульв.) до пр. Маршала Жукова)</option>';
+            _options_str  += '<option value="ул. Маршала Казакова от пр. Маршала Жукова до ул. Доблести ">ул. Маршала Казакова от пр. Маршала Жукова до ул. Доблести </option>';
+            _options_str  += '<option value="ул. Новые Заводы (от ул. Связи до Охотничьей ул.)">ул. Новые Заводы (от ул. Связи до Охотничьей ул.)</option>';
+            _options_str  += '<option value="ул. Потапова от Ириновского пр. до шоссе Революции">ул. Потапова от Ириновского пр. до шоссе Революции</option>';
+            _options_str  += '<option value="ул. Сикейроса">ул. Сикейроса</option>';
+            _options_str  += '<option value="ул. Советская (п. Песочное)">ул. Советская (п. Песочное)</option>';
+            _options_str  += '<option value="ул. Трефолева параллельно Химическому пер. до ул. Калинина">ул. Трефолева параллельно Химическому пер. до ул. Калинина</option>';
+            _options_str  += '<option value="ул. Ярослава Гашека (от Балканской пл. до М. Карпатской ул.)">ул. Ярослава Гашека (от Балканской пл. до М. Карпатской ул.)</option>';
+            _options_str  += '<option value="ул.Котлякова от Автомобильной ул.  до  проезда в Депо Метрополитена">ул.Котлякова от Автомобильной ул.  до  проезда в Депо Метрополитена</option>';
+            sel_.innerHTML = _options_str;
+            div_.appendChild(sel_);
+            var lab_ = document.createElement('div');
+            lab_.innerHTML = 'Объекты БКД СПБ';
+            lab_.className = 'filterlabel';
+            div_.appendChild(lab_);
+            var reset_ = document.createElement('div');
+            reset_.innerHTML = 'clear filter';
+            reset_.className = 'filterlabel';
+            reset_.onclick = function() {
+                var options = document.getElementById("sel_").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_.appendChild(reset_);
+        </script>
+    </body>
+</html>
